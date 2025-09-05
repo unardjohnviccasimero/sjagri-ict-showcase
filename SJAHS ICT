@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>San Jose Agricultural High School – ICT Showcase</title>
+  <meta name="description" content="Activities, awards, recognitions, and school works of the ICT students of San Jose Agricultural High School." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================
+       SJAgriHS ICT Showcase – Single-file, responsive website
+       HOW TO EDIT:
+       1) Scroll down to the <script id="site-data"> section to update Activities, Awards, and Works.
+       2) Replace LOGO and photos in the /images folder or use direct links.
+       3) To publish, just upload this file to GitHub Pages, Netlify, or your school LMS.
+       ========================================================== */
+
+    :root {
+      --bg: #0b1020;
+      --panel: #10162a;
+      --muted: #a6b0d4;
+      --text: #ecf0ff;
+      --brand: #6ae3ff;
+      --brand-2: #9ef8a1;
+      --accent: #ffe173;
+      --danger: #ff7a7a;
+      --ring: #6ae3ff66;
+    }
+
+    :root.light {
+      --bg: #f7f9ff;
+      --panel: #ffffff;
+      --muted: #495072;
+      --text: #0b1020;
+      --brand: #0077ff;
+      --brand-2: #0bb37e;
+      --accent: #b46d00;
+      --danger: #b42318;
+      --ring: #0077ff33;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: linear-gradient(180deg, var(--bg), #0f172a 50%, var(--bg));
+      color: var(--text);
+      letter-spacing: 0.2px;
+    }
+
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 40;
+      background: rgba(15, 23, 42, .75);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #ffffff12;
+    }
+    .container { width: min(1200px, 92%); margin: 0 auto; }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; gap: 12px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .3px; }
+    .brand img { width: 40px; height: 40px; border-radius: 10px; box-shadow: 0 6px 24px #00000040; }
+    .brand span { font-size: 18px; }
+
+    nav ul { display: flex; gap: 18px; list-style: none; padding: 0; margin: 0; }
+    nav a { padding: 8px 12px; border-radius: 999px; }
+    nav a:hover { background: #ffffff0e; text-decoration: none; }
+
+    .actions { display: flex; gap: 10px; align-items: center; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; border: 1px solid #ffffff1f;
+      background: #ffffff0a; color: var(--text); padding: 8px 12px; border-radius: 12px; cursor: pointer;
+    }
+    .btn.primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #05111a; border-color: transparent; font-weight: 700; }
+    .btn:focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; }
+
+    /* Hero */
+    .hero { position: relative; padding: 64px 0 36px; }
+    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; background: #ffffff14; border: 1px solid #ffffff1f; font-size: 12px; }
+    h1 { font-size: clamp(28px, 4.5vw, 48px); margin: 10px 0 8px; line-height: 1.1; }
+    .subtitle { color: var(--muted); font-size: clamp(14px, 2.2vw, 18px); max-width: 70ch; }
+
+    .hero-grid { margin-top: 28px; display: grid; grid-template-columns: 1.3fr .7fr; gap: 18px; }
+    .hero-card { background: linear-gradient(180deg, #0f172a, #0b1020); border: 1px solid #ffffff14; border-radius: 20px; padding: 16px; box-shadow: 0 10px 30px #00000033; }
+    .stat { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 10px; }
+    .stat .kpi { background: #ffffff08; border: 1px solid #ffffff14; border-radius: 16px; padding: 12px; text-align: center; }
+    .kpi h3 { margin: 2px 0 4px; font-size: 22px; }
+    .kpi p { margin: 0; color: var(--muted); font-size: 12px; }
+
+    .hero-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .hero-gallery img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 14px; border: 1px solid #ffffff14; }
+
+    /* Section basics */
+    section { padding: 36px 0; }
+    section h2 { font-size: clamp(22px, 3.6vw, 32px); margin: 0 0 14px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 14px; margin-bottom: 12px; }
+    .muted { color: var(--muted); }
+
+    /* Filters */
+    .filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .field { display: inline-flex; align-items: center; gap: 8px; background: #ffffff0a; border: 1px solid #ffffff1f; border-radius: 12px; padding: 8px 10px; }
+    .field input, .field select { background: transparent; color: var(--text); border: none; outline: none; font: inherit; }
+    .chip { font-size: 12px; padding: 6px 10px; background: #ffffff10; border: 1px solid #ffffff1f; border-radius: 999px; }
+
+    /* Cards */
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { background: var(--panel); border: 1px solid #ffffff12; border-radius: 18px; padding: 14px; display: flex; gap: 12px; }
+    .thumb { width: 120px; height: 90px; flex: 0 0 120px; border-radius: 12px; overflow: hidden; border: 1px solid #ffffff16; background: #0a0f1e; display: grid; place-items: center; }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .card h3 { margin: 2px 0 4px; font-size: 18px; }
+    .meta { color: var(--muted); font-size: 12px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+
+    /* Timeline */
+    .timeline { display: grid; gap: 12px; }
+    .t-item { position: relative; background: var(--panel); border: 1px solid #ffffff12; border-radius: 16px; padding: 12px 14px 12px 44px; }
+    .t-item::before { content: ""; position: absolute; left: 18px; top: 14px; width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: 0 0 0 4px #6ae3ff22; }
+    .t-item h3 { margin: 0; font-size: 16px; }
+    .t-item .meta { margin-top: 2px; }
+
+    /* Works gallery */
+    .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .work { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid #ffffff14; background: #0a0f1e; }
+    .work img { width: 100%; height: 180px; object-fit: cover; display: block; }
+    .work .w-info { padding: 10px 12px; }
+    .work h4 { margin: 0; font-size: 15px; }
+
+    .tag { font-size: 11px; padding: 4px 8px; border-radius: 999px; border: 1px solid #ffffff1f; background: #ffffff10; }
+
+    /* Modal */
+    dialog.lightbox { width: min(900px, 92%); border: none; border-radius: 16px; background: var(--panel); color: var(--text); padding: 0; overflow: hidden; }
+    .lb-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid #ffffff14; }
+    .lb-body { padding: 12px; }
+    .lb-media { width: 100%; height: 60vh; background: #000; display: grid; place-items: center; }
+    .lb-media img { width: 100%; height: 100%; object-fit: contain; }
+
+    /* Footer */
+    footer { border-top: 1px solid #ffffff14; padding: 20px 0 40px; color: var(--muted); }
+
+    /* Utilities */
+    .hidden { display: none !important; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery { grid-template-columns: repeat(3, 1fr); }
+      .hero-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      nav ul { display: none; }
+      .grid { grid-template-columns: 1fr; }
+      .gallery { grid-template-columns: 1fr 1fr; }
+      .thumb { display: none; }
+      .card { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ==================== HEADER ==================== -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=300&auto=format&fit=crop" alt="SJAgriHS Logo placeholder" />
+        <span>San Jose Agricultural High School • ICT Showcase</span>
+      </div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#activities">Activities</a></li>
+          <li><a href="#awards">Awards</a></li>
+          <li><a href="#works">School Works</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="actions">
+        <button class="btn" id="theme-toggle" title="Toggle theme">🌙/☀️</button>
+        <a class="btn primary" href="#works">View Portfolio</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <div class="container">
+      <span class="badge">💻 ICT Department • San Jose Agricultural High School</span>
+      <h1>Showcasing Student Activities, Awards, and Digital Works</h1>
+      <p class="subtitle">A living portfolio of our ICT learners—documenting campus initiatives, competitions, community projects, and classroom outputs from web design to multimedia. Explore what our students build and achieve.</p>
+
+      <div class="hero-grid">
+        <div class="hero-card">
+          <strong>Highlights</strong>
+          <div class="stat" id="kpis">
+            <div class="kpi"><h3 id="kpi-activities">0</h3><p>Activities</p></div>
+            <div class="kpi"><h3 id="kpi-awards">0</h3><p>Awards</p></div>
+            <div class="kpi"><h3 id="kpi-works">0</h3><p>School Works</p></div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <strong>Gallery</strong>
+          <div class="hero-gallery" id="hero-gallery"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ACTIVITIES ==================== -->
+  <section id="activities">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Activities</h2>
+          <p class="muted">Bootcamps, seminars, hackathons, outreach, and school events.</p>
+        </div>
+        <div class="filters">
+          <label class="field" title="Search by title or description">
+            🔎 <input id="activity-search" type="search" placeholder="Search activities…" />
+          </label>
+          <label class="field">Year
+            <select id="activity-year"></select>
+          </label>
+          <label class="field">Type
+            <select id="activity-type"></select>
+          </label>
+          <span class="chip" id="activity-count">0 found</span>
+        </div>
+      </div>
+
+      <div class="grid" id="activity-list"></div>
+    </div>
+  </section>
+
+  <!-- ==================== AWARDS ==================== -->
+  <section id="awards">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Awards & Recognitions</h2>
+          <p class="muted">Division, Regional, and School-level achievements of ICT students.</p>
+        </div>
+        <div class="filters">
+          <label class="field">Year
+            <select id="awards-year"></select>
+          </label>
+          <label class="field">Level
+            <select id="awards-level"></select>
+          </label>
+          <span class="chip" id="awards-count">0 records</span>
+        </div>
+      </div>
+
+      <div class="timeline" id="awards-list"></div>
+    </div>
+  </section>
+
+  <!-- ==================== WORKS ==================== -->
+  <section id="works">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>School Works Portfolio</h2>
+          <p class="muted">Selected outputs from classes (web dev, graphics, animation, office apps, and more).</p>
+        </div>
+        <div class="filters">
+          <label class="field">Search <input id="works-search" type="search" placeholder="Search works…" /></label>
+          <label class="field">Tag
+            <select id="works-tag"></select>
+          </label>
+          <label class="field">Tool
+            <select id="works-tool"></select>
+          </label>
+          <span class="chip" id="works-count">0 items</span>
+        </div>
+      </div>
+
+      <div class="gallery" id="works-gallery"></div>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT ==================== -->
+  <section id="about">
+    <div class="container">
+      <h2>About the ICT Program</h2>
+      <p class="muted">The ICT program at San Jose Agricultural High School equips learners with foundational and advanced digital skills—from productivity tools to web development and multimedia. Beyond the classroom, students engage in competitions and community service projects that apply technology for real-world impact.</p>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section id="contact">
+    <div class="container">
+      <h2>Contact</h2>
+      <p class="muted">For collaborations, event invites, or to feature student works, reach out via email.</p>
+      <div class="filters">
+        <a class="btn" href="mailto:ict@sanjoseagrihs.edu.ph">✉️ ict@sanjoseagrihs.edu.ph</a>
+        <a class="btn" href="#" id="download-json">⬇️ Download data.json</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> San Jose Agricultural High School — ICT Department. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- ==================== LIGHTBOX ==================== -->
+  <dialog class="lightbox" id="lightbox">
+    <div class="lb-head">
+      <strong id="lb-title">Preview</strong>
+      <button class="btn" id="lb-close">Close ✖</button>
+    </div>
+    <div class="lb-body">
+      <div class="lb-media"><img id="lb-img" alt="Preview" /></div>
+      <p class="muted" id="lb-caption" style="margin-top:10px"></p>
+    </div>
+  </dialog>
+
+  <!-- ==================== DATA (EDIT THIS) ==================== -->
+  <script id="site-data" type="application/json">
+  {
+    "heroImages": [
+      "https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1581276879432-15e50529f34b?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop"
+    ],
+    "activities": [
+      {
+        "title": "Campus ICT Orientation & Bootcamp",
+        "date": "2025-07-15",
+        "year": 2025,
+        "type": "Orientation",
+        "desc": "Intro to program, safety online, lab rules, and hands-on setup.",
+        "img": "https://images.unsplash.com/photo-1553631072-978ba6b24547?q=80&w=800&auto=format&fit=crop",
+        "link": "#"
+      },
+      {
+        "title": "Community E‑Service: Basic Digital Literacy",
+        "date": "2025-08-10",
+        "year": 2025,
+        "type": "Outreach",
+        "desc": "Student volunteers taught MS Office, email, and safe browsing to barangay youth.",
+        "img": "https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=800&auto=format&fit=crop",
+        "link": "#"
+      },
+      {
+        "title": "School Web Fair & Exhibit",
+        "date": "2024-12-05",
+        "year": 2024,
+        "type": "Exhibit",
+        "desc": "Showcase of class websites, posters, animations, and capstone demos.",
+        "img": "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=800&auto=format&fit=crop",
+        "link": "#"
+      },
+      {
+        "title": "Hour of Code",
+        "date": "2024-12-10",
+        "year": 2024,
+        "type": "Workshop",
+        "desc": "All sections joined activities introducing coding fundamentals.",
+        "img": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop",
+        "link": "#"
+      }
+    ],
+    "awards": [
+      {
+        "title": "Division ICT Quiz Bee — Team",
+        "level": "Division",
+        "issuer": "DepEd",
+        "placement": "Champion",
+        "date": "2025-02-22",
+        "year": 2025,
+        "recipient": "SJAgriHS ICT Team",
+        "desc": "Secured 1st place in division-wide quiz bee on computing and digital ethics.",
+        "link": "#"
+      },
+      {
+        "title": "Regional Web Design Challenge",
+        "level": "Regional",
+        "issuer": "ICT Council",
+        "placement": "2nd Runner‑Up",
+        "date": "2024-11-18",
+        "year": 2024,
+        "recipient": "Andrea D.",
+        "desc": "Responsive website prototype with accessibility-first design.",
+        "link": "#"
+      },
+      {
+        "title": "Campus Journalism (Layout & Graphics)",
+        "level": "School",
+        "issuer": "SJAgriHS",
+        "placement": "Best in Layout",
+        "date": "2024-10-05",
+        "year": 2024,
+        "recipient": "ICT Club",
+        "desc": "Recognized for publication layout and digital poster series.",
+        "link": "#"
+      }
+    ],
+    "works": [
+      {
+        "title": "EcoFarm Finder (HTML/CSS/JS)",
+        "student": "Grade 10 • Team Earth",
+        "tools": ["HTML","CSS","JavaScript"],
+        "tags": ["web","maps","agri"],
+        "thumb": "https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?q=80&w=1200&auto=format&fit=crop",
+        "desc": "A simple directory for local agri suppliers with search and filters.",
+        "link": "#"
+      },
+      {
+        "title": "Digital Poster: Safe Online Habits",
+        "student": "Grade 9 • Maria L.",
+        "tools": ["Canva","Illustrator"],
+        "tags": ["graphics","poster"],
+        "thumb": "https://images.unsplash.com/photo-1512295767273-ac109ac3acfa?q=80&w=1200&auto=format&fit=crop",
+        "desc": "Awareness poster campaign for Cyber Safety Week.",
+        "link": "#"
+      },
+      {
+        "title": "Spreadsheet: Farm Budget Tracker",
+        "student": "Grade 8 • Ramon P.",
+        "tools": ["Excel"],
+        "tags": ["spreadsheets","finance"],
+        "thumb": "https://images.unsplash.com/photo-1554224155-1696413565d3?q=80&w=1200&auto=format&fit=crop",
+        "desc": "Automated expense tracker with charts and formulas.",
+        "link": "#"
+      },
+      {
+        "title": "Animation: Seed to Harvest",
+        "student": "Grade 10 • Group 3",
+        "tools": ["Canva","After Effects"],
+        "tags": ["animation","agri"],
+        "thumb": "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?q=80&w=1200&auto=format&fit=crop",
+        "desc": "Short explainer on farm cycles using motion graphics.",
+        "link": "#"
+      }
+    ]
+  }
+  </script>
+
+  <!-- ==================== APP SCRIPT ==================== -->
+  <script>
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    const state = { theme: localStorage.getItem('theme') || 'dark' };
+
+    function applyTheme() {
+      if (state.theme === 'light') document.documentElement.classList.add('light');
+      else document.documentElement.classList.remove('light');
+      localStorage.setItem('theme', state.theme);
+    }
+
+    $('#theme-toggle').addEventListener('click', () => {
+      state.theme = state.theme === 'light' ? 'dark' : 'light';
+      applyTheme();
+    });
+    applyTheme();
+
+    // Load data
+    const DATA = JSON.parse($('#site-data').textContent);
+
+    // Hero KPIs & Gallery
+    function renderKPIs() {
+      $('#kpi-activities').textContent = DATA.activities.length;
+      $('#kpi-awards').textContent = DATA.awards.length;
+      $('#kpi-works').textContent = DATA.works.length;
+    }
+
+    function renderHeroGallery() {
+      const wrap = $('#hero-gallery');
+      wrap.innerHTML = '';
+      DATA.heroImages.slice(0, 6).forEach(src => {
+        const img = document.createElement('img');
+        img.src = src; img.alt = 'ICT gallery photo';
+        img.addEventListener('click', () => openLightbox(src, ''));
+        wrap.appendChild(img);
+      });
+    }
+
+    // Utility: options for select
+    function setOptions(select, values, {withAll=true, labelAll='All'}={}) {
+      select.innerHTML = '';
+      if (withAll) select.append(new Option(labelAll, ''));
+      [...values].sort((a,b)=> String(a).localeCompare(String(b))).forEach(v => select.append(new Option(v, v)));
+    }
+
+    // ACTIVITIES ------------------------------------------------
+    const aSearch = $('#activity-search');
+    const aYear = $('#activity-year');
+    const aType = $('#activity-type');
+    function initActivities() {
+      const years = new Set(DATA.activities.map(a=>a.year));
+      const types = new Set(DATA.activities.map(a=>a.type));
+      setOptions(aYear, years);
+      setOptions(aType, types);
+      aSearch.addEventListener('input', renderActivities);
+      aYear.addEventListener('change', renderActivities);
+      aType.addEventListener('change', renderActivities);
+      renderActivities();
+    }
+
+    function renderActivities() {
+      const q = aSearch.value.trim().toLowerCase();
+      const y = aYear.value; const t = aType.value;
+      const list = $('#activity-list'); list.innerHTML = '';
+      const filtered = DATA.activities.filter(a => {
+        const matchQ = !q || (a.title+" "+a.desc).toLowerCase().includes(q);
+        const matchY = !y || String(a.year) === y;
+        const matchT = !t || a.type === t;
+        return matchQ && matchY && matchT;
+      }).sort((x,y)=> new Date(y.date)-new Date(x.date));
+
+      $('#activity-count').textContent = `${filtered.length} found`;
+      filtered.forEach(a => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="thumb">${a.img?`<img src="${a.img}" alt="${a.title}">`:'📷'}</div>
+          <div>
+            <h3>${a.title}</h3>
+            <div class="meta">${new Date(a.date).toLocaleDateString()} • ${a.type}</div>
+            <p class="muted">${a.desc}</p>
+            <div class="tags">
+              <span class="tag">Year ${a.year}</span>
+              <button class="btn" data-img="${a.img||''}" data-title="${a.title}" data-desc="${a.desc}">View photo</button>
+              ${a.link?`<a class="btn" href="${a.link}" target="_blank" rel="noopener">Open link ↗</a>`:''}
+            </div>
+          </div>
+        `;
+        const viewBtn = card.querySelector('button[data-img]');
+        viewBtn.addEventListener('click', (ev)=>{
+          const src = ev.currentTarget.getAttribute('data-img');
+          if (src) openLightbox(src, a.title+" — "+a.desc);
+        });
+        list.appendChild(card);
+      });
+    }
+
+    // AWARDS ----------------------------------------------------
+    const awYear = $('#awards-year');
+    const awLevel = $('#awards-level');
+    function initAwards() {
+      const years = new Set(DATA.awards.map(a=>a.year));
+      const levels = new Set(DATA.awards.map(a=>a.level));
+      setOptions(awYear, years);
+      setOptions(awLevel, levels);
+      awYear.addEventListener('change', renderAwards);
+      awLevel.addEventListener('change', renderAwards);
+      renderAwards();
+    }
+
+    function renderAwards() {
+      const y = awYear.value; const l = awLevel.value;
+      const list = $('#awards-list'); list.innerHTML = '';
+      const filtered = DATA.awards.filter(a => (!y || String(a.year)===y) && (!l || a.level===l)).sort((x,y)=> new Date(y.date)-new Date(x.date));
+      $('#awards-count').textContent = `${filtered.length} records`;
+      filtered.forEach(a => {
+        const item = document.createElement('div');
+        item.className = 't-item';
+        item.innerHTML = `
+          <h3>${a.title} — <span style="color:var(--accent); font-weight:700;">${a.placement}</span></h3>
+          <div class="meta">${new Date(a.date).toLocaleDateString()} • ${a.level} • ${a.issuer} • ${a.recipient}</div>
+          <p class="muted">${a.desc}</p>
+          <div class="tags">${a.link?`<a class="btn" href="${a.link}" target="_blank" rel="noopener">View certificate ↗</a>`:''}</div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    // WORKS -----------------------------------------------------
+    const wSearch = $('#works-search');
+    const wTag = $('#works-tag');
+    const wTool = $('#works-tool');
+    function initWorks() {
+      const tags = new Set(DATA.works.flatMap(w=>w.tags));
+      const tools = new Set(DATA.works.flatMap(w=>w.tools));
+      setOptions(wTag, tags);
+      setOptions(wTool, tools);
+      wSearch.addEventListener('input', renderWorks);
+      wTag.addEventListener('change', renderWorks);
+      wTool.addEventListener('change', renderWorks);
+      renderWorks();
+    }
+
+    function renderWorks() {
+      const q = wSearch.value.trim().toLowerCase();
+      const tag = wTag.value; const tool = wTool.value;
+      const gal = $('#works-gallery'); gal.innerHTML = '';
+      const filtered = DATA.works.filter(w => {
+        const matchQ = !q || (w.title+" "+w.desc+" "+w.student).toLowerCase().includes(q);
+        const matchTag = !tag || w.tags.includes(tag);
+        const matchTool = !tool || w.tools.includes(tool);
+        return matchQ && matchTag && matchTool;
+      });
+      $('#works-count').textContent = `${filtered.length} items`;
+      filtered.forEach(w => {
+        const el = document.createElement('article'); el.className = 'work';
+        el.innerHTML = `
+          <img src="${w.thumb}" alt="${w.title}" />
+          <div class="w-info">
+            <h4>${w.title}</h4>
+            <div class="meta">${w.student}</div>
+            <div class="tags">
+              ${w.tools.map(t=>`<span class='tag'>${t}</span>`).join(' ')}
+              ${w.tags.map(t=>`<span class='tag'>#${t}</span>`).join(' ')}
+            </div>
+            <div class="tags" style="margin-top:8px;">
+              <button class="btn" data-img="${w.thumb}" data-title="${w.title}" data-desc="${w.desc}">Preview</button>
+              ${w.link?`<a class="btn" href="${w.link}" target="_blank" rel="noopener">Open project ↗</a>`:''}
+            </div>
+          </div>
+        `;
+        el.querySelector('button[data-img]').addEventListener('click', (ev)=>{
+          openLightbox(w.thumb, `${w.title} — ${w.desc}`);
+        });
+        gal.appendChild(el);
+      });
+    }
+
+    // Lightbox --------------------------------------------------
+    const lb = $('#lightbox');
+    $('#lb-close').addEventListener('click', ()=> lb.close());
+    function openLightbox(src, caption='') {
+      $('#lb-title').textContent = 'Preview';
+      $('#lb-img').src = src; $('#lb-caption').textContent = caption;
+      lb.showModal();
+    }
+
+    // Data downloader ------------------------------------------
+    $('#download-json').addEventListener('click', (e)=>{
+      e.preventDefault();
+      const blob = new Blob([JSON.stringify(DATA, null, 2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'sjagrihs-ict-data.json'; a.click();
+      setTimeout(()=> URL.revokeObjectURL(url), 1000);
+    });
+
+    // Footer year
+    $('#year').textContent = new Date().getFullYear();
+
+    // Init all
+    renderKPIs();
+    renderHeroGallery();
+    initActivities();
+    initAwards();
+    initWorks();
+  </script>
+</body>
+</html>
